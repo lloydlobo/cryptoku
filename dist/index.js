@@ -3,6 +3,7 @@ var PORT = 8000;
 var express = require("express");
 var axios = require("axios");
 var cheerio = require("cheerio");
+var pretty = require("pretty");
 var fs = require("fs");
 var path = require("path");
 var app = express();
@@ -22,17 +23,18 @@ function writeJSONToFile() {
 app.get("/", function (req, res) {
     res.json("Welcome to favorite lyrics API");
 });
-app
-    .get("/lyrics", function (req, res) {
+app.get("/lyrics", function (req, res) {
     var urls = [
         "https://www.billboard.com/music/rock/bob-dylan-beautiful-lyrics-nobel-prize-literature-7541798/",
         "https://www.azlyrics.com/d/dylan.html",
         "https://www.theguardian.com/uk/money",
     ];
-    axios.get(urls[0]).then(function (response) {
+    axios
+        .get(urls[0])
+        .then(function (response) {
         var html = response.data;
-        console.log(html);
         var $ = cheerio.load(html);
+        console.log(pretty($.html()));
         $('strong:contains("i")', html).each(function () {
             var title = $(this).text();
             var url = $(this).attr("href");
@@ -42,10 +44,10 @@ app
             });
         });
         writeJSONToFile();
-    });
+    })
+        .catch(function (err) { return console.error(err); });
     res.json(songs);
-})
-    .catch(function (err) { return console.error(err); });
+});
 app.listen(PORT, function () {
     console.log("server is running at http://localhost:".concat(PORT));
 });

@@ -8,7 +8,7 @@
   - For Example, `https.google.com/robots.txt`
   - [Credits](https://www.section.io/engineering-education/build-a-web-scraper-using-cheerio/)
 
-## Resources
+## Additional Resources
 
 ### Cheerio
 
@@ -24,3 +24,8 @@
   - > `$("li:odd")` — selects all odd `<li>` elements
   - > `$(":empty")` — selects all elements that are empty
   - > `$(":focus")` — selects the element that currently has focus
+
+### Articles
+
+- [](https://www.freecodecamp.org/news/how-to-scrape-websites-with-node-js-and-cheerio/)
+- [](https://zetcode.com/javascript/cheerio/)
