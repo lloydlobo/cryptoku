@@ -40,3 +40,4 @@ Speedy Web Compiler - Written in Rust for JavaScript/Typescript.
 
 - [](https://www.freecodecamp.org/news/how-to-scrape-websites-with-node-js-and-cheerio/)
 - [](https://zetcode.com/javascript/cheerio/)
+- [](https://www.section.io/engineering-education/build-a-web-scraper-using-cheerio/)

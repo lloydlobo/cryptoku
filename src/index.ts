@@ -1,31 +1,101 @@
-// https://www.billboard.com/music/rock/bob-dylan-beautiful-lyrics-nobel-prize-literature-7541798/
-
-const PORT = 8000;
-
-// initialize
+// cspell:ignore Marketcap cryptocurrent
 const express = require("express");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const pretty = require("pretty");
-
 const fs = require("fs");
 const path = require("path");
 
+const PORT = process.env.PORT || 8000;
 const app = express();
+const coinsArray: any[] = [];
 
-const artists = [{}]; // maybe fetch the newspaper json from live-api rapid-api?
+interface Keys {
+  Rank: string;
+  Coin: string;
+  Price: string;
+  Hours_24: string;
+  Days_7: string;
+  Marketcap: string;
+  Volume: string;
+  CirculatingSupply: string;
+}
 
-type Song = {
-  title: string;
-  url: string;
-  source?: string;
-  body?: string;
+// #1 path
+app.get("/", (req: any, res: any) => {
+  res.json("Welcome to cryptocurrent API");
+});
+
+const scrapeCryptoPrice = async () => {
+  const url = "https://coinmarketcap.com/";
+  axios(url)
+    .then((response: { data: any }) => {
+      const htmlMarkup = response.data;
+      const $ = cheerio.load(htmlMarkup);
+
+      const selectedElem = `#__next > div > div.main-content > div.sc-57oli2-0.comDeo.cmc-body-wrapper > div > div > div.h7vnx2-1.bFzXgL > table > tbody > tr`;
+      const keys: any[] = [ "Rank", "Coin", "Price", "Hours_24", "Days_7", "Marketcap", "Volume", "CirculatingSupply", ]; // prettier-ignore
+
+      $(selectedElem).each((indexParent: number, elemParent: any) => {
+        let keyIdx = 0;
+        const coinsData = Object(null);
+
+        if (indexParent <= 9) {
+          $(elemParent)
+            .children()
+            .each((idChild: any, elemChild: any) => {
+              const data = $(elemChild).text();
+              if (data) {
+                coinsData[keys[keyIdx]] = data;
+                keyIdx += 1;
+              }
+            });
+          coinsArray.push(coinsData);
+        }
+      });
+    })
+    .catch((err: any) => console.error(err));
+
+  return coinsArray;
 };
-const songs: Song[] = [];
-function writeJSONToFile() {
-  const jsonContent = JSON.stringify(songs);
 
-  fs.writeFile("output.json", jsonContent, "utf8", (err: any) => {
+// #3 return result try/catch
+const data = app.get("/crypto", async (req: any, res: any) => {
+  const data = async () => {
+    try {
+      const crypto = await scrapeCryptoPrice();
+      return res.status(200).json({
+        result: crypto,
+      });
+    } catch (err: any) {
+      return res.status(500).json({
+        err: err.toString(),
+      });
+    }
+  };
+  return data();
+});
+
+// #2 listen through nodemon - dist/index.js
+app.listen(PORT, () => {
+  console.log(`server is running at http://localhost:${PORT}`);
+});
+
+// //////////////////////////////////////////////////////////////////s
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor#description
+
+/* 
+Cheerio provides methods like find() to find elements, each() to iterate through elements, filter() method amongst others.
+#1 Copy Selector
+#__next > div > div.main-content > div.sc-57oli2-0.comDeo.cmc-body-wrapper > div > div > div.h7vnx2-1.bFzXgL > table > tbody > tr:nth-child(1)
+*/
+
+// //////////////////////////////////////////////////////////////////s
+
+async function writeJSONToFile(array: any[]) {
+  const jsonContent = JSON.stringify(array);
+  await fs.writeFile("output.json", jsonContent, "utf8", (err: any) => {
     if (err) {
       console.error(err);
       throw new Error(err);
@@ -35,75 +105,4 @@ function writeJSONToFile() {
   });
 }
 
-// https://www.section.io/engineering-education/build-a-web-scraper-using-cheerio/
-const selectedElem =
-  "#__next > div > div.main-content > div.sc-57oli2-0.comDeo.cmc-body-wrapper > div > div:nth-child(1) > div.h7vnx2-1.bFzXgL > table > tbody > tr";
-
-const keys = [
-  "No.",
-  "Coin",
-  "Price",
-  "24h",
-  "7d",
-  "Marketcap",
-  "Volume",
-  "CirculatingSupply",
-];
-
-const urls = [
-  "https://www.billboard.com/music/rock/bob-dylan-beautiful-lyrics-nobel-prize-literature-7541798/",
-  "https://www.azlyrics.com/d/dylan.html",
-  "https://www.theguardian.com/uk/money",
-  "https://coinmarketcap.com/",
-];
-
-// #1 path
-app.get("/", (req: any, res: any) => {
-  res.json("Welcome to favorite lyrics API");
-});
-
-// #3 fetch lyrics from axios -> html scrape with cheerio
-// and push it to the array articles
-app.get("/lyrics", (req: any, res: any) => {
-  // eslint-disable-next-line no-use-before-define
-  axios
-    .get(urls[0])
-    .then((response: { data: any }) => {
-      const html = response.data;
-      // console.log(pretty(html)); // // go visit http://localhost:8000/lyrics -> html in the terminal
-
-      const $ = cheerio.load(html);
-      console.log(pretty($.html()));
-      // can use regexp to input RegExp(/[a-zA-Z0-9]) in a:contains()
-      // eslint-disable-next-line no-undef
-      $('strong:contains("i")', html).each(function (this: cheerio.Element) {
-        const title: string = $(this).text();
-        const url: string = $(this).attr("href");
-        // const body: string = $(this).attr("p");
-
-        songs.push({
-          title: title,
-          url: url,
-        });
-      });
-      writeJSONToFile(); // maybe pass in songs in the arguments?
-    })
-    .catch((err: any) => console.error(err));
-
-  // res JSON displayed in localhost:${PORT}/lyrics
-  res.json(songs);
-});
-
-// #2 listen through nodemon - dist/index.js
-app.listen(PORT, () => {
-  console.log(`server is running at http://localhost:${PORT}`);
-});
-
-// parse json
-// const jsonObj = JSON.parse([...songs].toString());
-
-// stringify JSON object just parsed
-
-// const writeTo = path.join(__dirname, "songs.json");
-// https://www.tutorialkart.com/nodejs/node-js-write-json-object-to-file/
-// const writeSync = fs.writeSync(writeTo);
+// writeJSONToFile(data);
