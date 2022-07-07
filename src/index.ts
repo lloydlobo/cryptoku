@@ -83,12 +83,15 @@ app.listen(PORT, () => {
 
 // //////////////////////////////////////////////////////////////////s
 
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor#description
+// #1 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor#description
 
-/* 
-Cheerio provides methods like find() to find elements, each() to iterate through elements, filter() method amongst others.
-#1 Copy Selector
-#__next > div > div.main-content > div.sc-57oli2-0.comDeo.cmc-body-wrapper > div > div > div.h7vnx2-1.bFzXgL > table > tbody > tr:nth-child(1)
+/* #2
+
+  Cheerio provides methods like find() to find elements, each() to iterate through elements, filter() method amongst others.
+
+  #1 Copy Selector
+      __next > div > div.main-content > div.sc-57oli2-0.comDeo.cmc-body-wrapper > div > div > div.h7vnx2-1.bFzXgL > table > tbody > tr:nth-child(1)
+      
 */
 
 // //////////////////////////////////////////////////////////////////s
