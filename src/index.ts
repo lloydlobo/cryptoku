@@ -13,18 +13,33 @@ const app = express();
 
 const newspapers = [{}]; // maybe fetch the newspaper json from live-api rapid-api?
 
-const articles: {
+type Article = {
     title: string;
     url: string;
     source: string;
-}[] = [];
+};
+const articles: Article[] = [];
 
-// path
+// #1 path
 app.get('/', (req: any, res: { json: (arg0: string) => void }) => {
     res.json('Welcome to favorite lyrics API');
 });
 
-// listen through nodemon - dist/index.js
+// #3 fetch lyrics from axios -> html scrape with cheerio
+// and push it to the array articles
+app.get('/lyrics', (req: any, res: any) => {
+    const url = `https://www.billboard.com/music/rock/bob-dylan-beautiful-lyrics-nobel-prize-literature-7541798/`;
+
+    // eslint-disable-next-line no-use-before-define
+    axios.get(url).then(function (response: { data: any }) {
+        const html = response.data;
+        console.log(html); // // go visit http://localhost:8000/lyrics -> html of the url websites comes back to the terminal
+    });
+    // res JSON displayed in localhost:${PORT}/lyrics
+    res.json(articles);
+});
+
+// #2 listen through nodemon - dist/index.js
 app.listen(PORT, () => {
     console.log(`server is running at http://localhost:${PORT}`);
 });
