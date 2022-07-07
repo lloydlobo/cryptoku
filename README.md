@@ -10,7 +10,18 @@
 
 ## Additional Resources
 
-### Cheerio
+### Development
+
+#### SWC
+
+Speedy Web Compiler - Written in Rust for JavaScript/Typescript.
+
+#### Jest - Testing
+
+> To make your Jest tests run faster, you can swap out the default JavaScript-based runner (ts-jest) for a drop-in Rust replacement using SWC.
+> > [SWC](https://swc.rs/docs/usage/jest)
+
+#### Cheerio
 
 - [Source](https://zetcode.com/javascript/cheerio/)
   - > `$("*")` — selects all elements
