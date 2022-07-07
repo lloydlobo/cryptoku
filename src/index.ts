@@ -35,6 +35,28 @@ function writeJSONToFile() {
   });
 }
 
+// https://www.section.io/engineering-education/build-a-web-scraper-using-cheerio/
+const selectedElem =
+  "#__next > div > div.main-content > div.sc-57oli2-0.comDeo.cmc-body-wrapper > div > div:nth-child(1) > div.h7vnx2-1.bFzXgL > table > tbody > tr";
+
+const keys = [
+  "No.",
+  "Coin",
+  "Price",
+  "24h",
+  "7d",
+  "Marketcap",
+  "Volume",
+  "CirculatingSupply",
+];
+
+const urls = [
+  "https://www.billboard.com/music/rock/bob-dylan-beautiful-lyrics-nobel-prize-literature-7541798/",
+  "https://www.azlyrics.com/d/dylan.html",
+  "https://www.theguardian.com/uk/money",
+  "https://coinmarketcap.com/",
+];
+
 // #1 path
 app.get("/", (req: any, res: any) => {
   res.json("Welcome to favorite lyrics API");
@@ -43,12 +65,6 @@ app.get("/", (req: any, res: any) => {
 // #3 fetch lyrics from axios -> html scrape with cheerio
 // and push it to the array articles
 app.get("/lyrics", (req: any, res: any) => {
-  const urls = [
-    "https://www.billboard.com/music/rock/bob-dylan-beautiful-lyrics-nobel-prize-literature-7541798/",
-    "https://www.azlyrics.com/d/dylan.html",
-    "https://www.theguardian.com/uk/money",
-  ];
-
   // eslint-disable-next-line no-use-before-define
   axios
     .get(urls[0])
