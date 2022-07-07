@@ -1,4 +1,12 @@
-# Lyrics API
+# API
+
+## Knowledge
+
+- Before scraping a website verify if it grants permission for scraping.
+- If it does, check what kind of actions are permitted.
+- **TIP** Suffix a `robots.txt` text to the URL, to check the permissions.
+  - For Example, `https.google.com/robots.txt`
+  - [Credits](https://www.section.io/engineering-education/build-a-web-scraper-using-cheerio/)
 
 ## Resources
 

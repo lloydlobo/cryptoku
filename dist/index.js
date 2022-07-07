@@ -22,7 +22,8 @@ function writeJSONToFile() {
 app.get("/", function (req, res) {
     res.json("Welcome to favorite lyrics API");
 });
-app.get("/lyrics", function (req, res) {
+app
+    .get("/lyrics", function (req, res) {
     var urls = [
         "https://www.billboard.com/music/rock/bob-dylan-beautiful-lyrics-nobel-prize-literature-7541798/",
         "https://www.azlyrics.com/d/dylan.html",
@@ -32,10 +33,9 @@ app.get("/lyrics", function (req, res) {
         var html = response.data;
         console.log(html);
         var $ = cheerio.load(html);
-        $('strong:contains("I")', html).each(function () {
+        $('strong:contains("i")', html).each(function () {
             var title = $(this).text();
             var url = $(this).attr("href");
-            var body = $(this).attr("p");
             songs.push({
                 title: title,
                 url: url,
@@ -44,7 +44,8 @@ app.get("/lyrics", function (req, res) {
         writeJSONToFile();
     });
     res.json(songs);
-});
+})
+    .catch(function (err) { return console.error(err); });
 app.listen(PORT, function () {
     console.log("server is running at http://localhost:".concat(PORT));
 });

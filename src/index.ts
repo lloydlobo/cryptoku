@@ -41,37 +41,39 @@ app.get("/", (req: any, res: any) => {
 
 // #3 fetch lyrics from axios -> html scrape with cheerio
 // and push it to the array articles
-app.get("/lyrics", (req: any, res: any) => {
-  const urls = [
-    "https://www.billboard.com/music/rock/bob-dylan-beautiful-lyrics-nobel-prize-literature-7541798/",
-    "https://www.azlyrics.com/d/dylan.html",
-    "https://www.theguardian.com/uk/money",
-  ];
+app
+  .get("/lyrics", (req: any, res: any) => {
+    const urls = [
+      "https://www.billboard.com/music/rock/bob-dylan-beautiful-lyrics-nobel-prize-literature-7541798/",
+      "https://www.azlyrics.com/d/dylan.html",
+      "https://www.theguardian.com/uk/money",
+    ];
 
-  // eslint-disable-next-line no-use-before-define
-  axios.get(urls[0]).then((response: { data: any }) => {
-    const html = response.data;
-    console.log(html); // // go visit http://localhost:8000/lyrics -> html in the terminal
+    // eslint-disable-next-line no-use-before-define
+    axios.get(urls[0]).then((response: { data: any }) => {
+      const html = response.data;
+      console.log(html); // // go visit http://localhost:8000/lyrics -> html in the terminal
 
-    const $ = cheerio.load(html);
-    // can use regexp to input RegExp(/[a-zA-Z0-9]) in a:contains()
-    // eslint-disable-next-line no-undef
-    $('strong:contains("I")', html).each(function (this: cheerio.Element) {
-      const title: string = $(this).text();
-      const url: string = $(this).attr("href");
-      const body: string = $(this).attr("p");
+      const $ = cheerio.load(html);
+      // can use regexp to input RegExp(/[a-zA-Z0-9]) in a:contains()
+      // eslint-disable-next-line no-undef
+      $('strong:contains("i")', html).each(function (this: cheerio.Element) {
+        const title: string = $(this).text();
+        const url: string = $(this).attr("href");
+        // const body: string = $(this).attr("p");
 
-      songs.push({
-        title: title,
-        url: url,
+        songs.push({
+          title: title,
+          url: url,
+        });
       });
+      writeJSONToFile(); // maybe pass in songs in the arguments?
     });
-    writeJSONToFile();
-  });
 
-  // res JSON displayed in localhost:${PORT}/lyrics
-  res.json(songs);
-});
+    // res JSON displayed in localhost:${PORT}/lyrics
+    res.json(songs);
+  })
+  .catch((err: any) => console.error(err));
 
 // #2 listen through nodemon - dist/index.js
 app.listen(PORT, () => {
