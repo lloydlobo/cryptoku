@@ -1,1 +1,104 @@
-[]
+{
+  "result": [
+    {
+      "Rank": "1",
+      "Coin": "Bitcoin1BTC",
+      "Price": "$20,416.20",
+      "Hours_24": "1.50%",
+      "Days_7": "6.33%",
+      "Marketcap": "$389.69B$389,692,714,379",
+      "Volume": "$21,708,444,8131,063,295 BTC",
+      "CirculatingSupply": "19,087,425 BTC"
+    },
+    {
+      "Rank": "2",
+      "Coin": "Ethereum2ETH",
+      "Price": "$1,181.94",
+      "Hours_24": "4.09%",
+      "Days_7": "14.83%",
+      "Marketcap": "$143.54B$143,544,659,179",
+      "Volume": "$13,074,146,32611,061,584 ETH",
+      "CirculatingSupply": "121,448,183 ETH"
+    },
+    {
+      "Rank": "3",
+      "Coin": "Tether3USDT",
+      "Price": "$0.9992",
+      "Hours_24": "0.01%",
+      "Days_7": "0.04%",
+      "Marketcap": "$65.94B$65,944,323,882",
+      "Volume": "$37,592,664,20537,621,142,560 USDT",
+      "CirculatingSupply": "65,994,280,061 USDT"
+    },
+    {
+      "Rank": "4",
+      "Coin": "USD Coin4USDC",
+      "Price": "$1.00",
+      "Hours_24": "0.02%",
+      "Days_7": "0.01%",
+      "Marketcap": "$55.56B$55,562,771,157",
+      "Volume": "$5,023,956,3625,022,524,878 USDC",
+      "CirculatingSupply": "55,546,939,563 USDC"
+    },
+    {
+      "Rank": "5",
+      "Coin": "BNB5BNB",
+      "Price": "$235.81",
+      "Hours_24": "0.58%",
+      "Days_7": "12.18%",
+      "Marketcap": "$38.50B$38,502,682,410",
+      "Volume": "$1,000,186,9694,241,458 BNB",
+      "CirculatingSupply": "163,276,975 BNB"
+    },
+    {
+      "Rank": "6",
+      "Coin": "Binance USD6BUSD",
+      "Price": "$0.9993",
+      "Hours_24": "0.25%",
+      "Days_7": "0.17%",
+      "Marketcap": "$17.54B$17,535,206,590",
+      "Volume": "$4,699,311,5704,702,532,252 BUSD",
+      "CirculatingSupply": "17,547,224,379 BUSD"
+    },
+    {
+      "Rank": "7",
+      "Coin": "XRP7XRP",
+      "Price": "$0.3291",
+      "Hours_24": "1.97%",
+      "Days_7": "5.07%",
+      "Marketcap": "$15.91B$15,911,122,433",
+      "Volume": "$993,367,5823,018,169,820 XRP",
+      "CirculatingSupply": "48,343,101,197 XRP"
+    },
+    {
+      "Rank": "8",
+      "Coin": "Cardano8ADA",
+      "Price": "$0.4635",
+      "Hours_24": "1.51%",
+      "Days_7": "4.76%",
+      "Marketcap": "$15.73B$15,729,951,362",
+      "Volume": "$540,984,4741,167,059,764 ADA",
+      "CirculatingSupply": "33,934,048,406 ADA"
+    },
+    {
+      "Rank": "9",
+      "Coin": "Solana9SOL",
+      "Price": "$36.92",
+      "Hours_24": "3.07%",
+      "Days_7": "15.46%",
+      "Marketcap": "$12.69B$12,690,532,792",
+      "Volume": "$1,136,186,52630,778,364 SOL",
+      "CirculatingSupply": "343,776,154 SOL"
+    },
+    {
+      "Rank": "10",
+      "Coin": "Dogecoin10DOGE",
+      "Price": "$0.069",
+      "Hours_24": "2.39%",
+      "Days_7": "7.57%",
+      "Marketcap": "$9.15B$9,153,900,204",
+      "Volume": "$404,492,1705,862,450,333 DOGE",
+      "CirculatingSupply": "132,670,764,300 DOGE"
+    }
+  ]
+}

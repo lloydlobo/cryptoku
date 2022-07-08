@@ -41,11 +41,13 @@ var cheerio = require("cheerio");
 var pretty = require("pretty");
 var fs = require("fs");
 var path = require("path");
+var cors = require("cors");
 var PORT = process.env.PORT || 8000;
 var app = express();
+app.use(cors());
 var coinsArray = [];
 app.get("/", function (req, res) {
-    res.json("Welcome to cryptocurrent API");
+    res.json("Welcome to cryptocurrent API. Available endpoints are /crypto");
 });
 var scrapeCryptoPrice = function () { return __awaiter(void 0, void 0, void 0, function () {
     var url;

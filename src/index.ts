@@ -5,9 +5,12 @@ const cheerio = require("cheerio");
 const pretty = require("pretty");
 const fs = require("fs");
 const path = require("path");
+// Install CORS package to access the REST API in the frontend
+const cors = require("cors");
 
 const PORT = process.env.PORT || 8000;
 const app = express();
+app.use(cors()); // call cors() in express to let the frontend access the REST API
 const coinsArray: any[] = [];
 
 interface Keys {
@@ -23,7 +26,7 @@ interface Keys {
 
 // #1 path
 app.get("/", (req: any, res: any) => {
-  res.json("Welcome to cryptocurrent API");
+  res.json(`Welcome to cryptocurrent API. Available endpoints are /crypto`);
 });
 
 const scrapeCryptoPrice = async () => {
